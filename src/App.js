@@ -1,7 +1,7 @@
 import './App.css';
 import Profile from './Profile';
-import TicTacToe from "./TicTacToe";
 import {useState} from 'react'
+import Game from "./TicTacToe";
 
 function AboutPage() {
     return (
@@ -34,7 +34,7 @@ function App() {
             <MyButton onClick={handleClick} count={count}/>
             <MyButton onClick={handleClick} count={count}/>
             <hr />
-            <TicTacToe />
+            <Game />
         </div>
     );
 }
