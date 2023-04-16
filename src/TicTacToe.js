@@ -63,6 +63,7 @@ function TicTacToe({xIsNext, squares, onPlay}) {
 export default function Game() {
     const [history, setHistory] = useState([Array(9).fill(null)]);
     const [currentMove, setCurrentMove] = useState(0)
+    const [movesOrderAsc, setMovesOrderAsc] = useState(true)
     const xIsNext = currentMove % 2 === 0;
     const currentSquares = history[currentMove];
 
@@ -76,17 +77,24 @@ export default function Game() {
         setCurrentMove(nextMove);
     }
 
-    const moves = history.map((squares, move) => {
-        if (history.length - 1 === move) return (
-            <li key={move}>You are at move #{move}</li>
-        )
-        const description = (move > 0) ? 'Go to move #' + move : 'Go to game start';
-        return (
-            <li key={move}>
-                <button onClick={() => jumpTo(move)}>{description}</button>
-            </li>
-        )
-    })
+    function moves() {
+        let moves = history.map((squares, move) => {
+            if (history.length - 1 === move) return (
+                <li key={move}>You are at move #{move}</li>
+            )
+            const description = (move > 0) ? 'Go to move #' + move : 'Go to game start';
+            return (
+                <li key={move}>
+                    <button onClick={() => jumpTo(move)}>{description}</button>
+                </li>
+            )
+        })
+        return movesOrderAsc ? moves : moves.reverse();
+    }
+
+    function toggleOrder() {
+        setMovesOrderAsc(!movesOrderAsc)
+    }
 
     return (
         <div className="game">
@@ -94,7 +102,8 @@ export default function Game() {
                 <TicTacToe xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
             </div>
             <div className="game-info">
-                <ol>{moves}</ol>
+                <button onClick={toggleOrder}>{movesOrderAsc ? 'asc' : 'desc'}</button>
+                <ol>{moves()}</ol>
             </div>
         </div>
     )
