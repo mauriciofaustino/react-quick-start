@@ -2,6 +2,7 @@ import './App.css';
 import Profile from './Profile';
 import {useState} from 'react'
 import Game from "./TicTacToe";
+import FilterableProductTable from "./FilterableProductTable";
 
 function AboutPage() {
     return (
@@ -35,6 +36,8 @@ function App() {
             <MyButton onClick={handleClick} count={count}/>
             <hr />
             <Game />
+            <hr />
+            <FilterableProductTable />
         </div>
     );
 }
